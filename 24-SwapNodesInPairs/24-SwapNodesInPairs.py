@@ -1,0 +1,19 @@
+# Last updated: 17/07/2026, 15:04:04
+class Solution:
+    def swapPairs(self, head):
+        dummy = ListNode(0)
+        dummy.next = head
+        prev = dummy
+
+        while prev.next and prev.next.next:
+            first = prev.next
+            second = first.next
+
+            first.next = second.next
+            second.next = first
+            prev.next = second
+
+            prev = first
+
+        return dummy.next
+        
