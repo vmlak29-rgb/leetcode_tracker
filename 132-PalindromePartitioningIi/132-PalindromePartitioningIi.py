@@ -1,0 +1,25 @@
+# Last updated: 17/07/2026, 15:01:51
+class Solution:
+    def minCut(self, s):
+        n = len(s)
+
+        is_pal = [[False] * n for _ in range(n)]
+
+        for i in range(n - 1, -1, -1):
+            for j in range(i, n):
+                if s[i] == s[j] and (j - i <= 2 or is_pal[i + 1][j - 1]):
+                    is_pal[i][j] = True
+
+        dp = [0] * n
+
+        for i in range(n):
+            if is_pal[0][i]:
+                dp[i] = 0
+            else:
+                dp[i] = float('inf')
+                for j in range(i):
+                    if is_pal[j + 1][i]:
+                        dp[i] = min(dp[i], dp[j] + 1)
+
+        return dp[n - 1]
+        
